@@ -1,12 +1,13 @@
 import express from 'express'
-import sequelize from './db'
 import userRoutes from './routes/userRoutes'
-// import User from './models/User'
+import taskRoutes from './routes/taskRoutes'
+import sequelize from './db'
 
 const app = express()
 app.use(express.json())
 
 app.use('/users', userRoutes)
+app.use('/tasks', taskRoutes)
 
 app.get('/', (req, res) => {
     res.send('Henlo, dis is my very epic le wholesome Trullo API')

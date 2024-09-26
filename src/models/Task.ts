@@ -1,14 +1,15 @@
 import { DataTypes, Model } from "sequelize"
 import sequelize from "../db"
+import User from '../models/User'
 
 class Task extends Model {
     public id!: string
     public title!: string
     public description!: string
-    public status!: string
+    public status!: 'to-do' | 'in progress' | 'blocked' | 'done'
     public assignedTo!: string
     public createdAt!: Date
-    public finishedBy!: Date
+    public finishedBy!: Date | null
 }
 Task.init({
     id: {
@@ -22,17 +23,23 @@ Task.init({
     },
     desc: {
         type: DataTypes.TEXT,
+        allowNull: true,
     },
     status: {
         type: DataTypes.ENUM('to-do', 'in progress', 'blocked', 'done'),
         defaultValue: 'to-do',
+        allowNull: false,
     },
     assignedTo: {
         type: DataTypes.UUID,
-        allowNull: true,
+        references: {
+            model: User,
+            key: 'id',
+        },
     },
     createdAt: {
         type: DataTypes.DATE,
+        allowNull: false,
         defaultValue: DataTypes.NOW,
     },
     finishedBy: {
