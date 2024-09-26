@@ -1,7 +1,7 @@
 import express from 'express'
 import sequelize from './db'
 import userRoutes from './routes/userRoutes'
-import User from './models/User'
+// import User from './models/User'
 
 const app = express()
 app.use(express.json())
